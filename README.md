@@ -3,7 +3,7 @@
 	
 ##Overview
 
-	By reading this blog post you can find discussions based on credible sources, theoretical analysis and the design of the solution for how to deal with big amount of data in Neo4j, avoid RAM overflow, bottlenecks when it comes to aggregated and ordered data. Addressing these serious issues can bring new life to your database and enable almost unlimited scaling. 
+By reading this blog post you can find discussions based on credible sources, theoretical analysis and the design of the solution for how to deal with big amount of data in Neo4j, avoid RAM overflow, bottlenecks when it comes to aggregated and ordered data. Addressing these serious issues can bring new life to your database and enable almost unlimited scaling. 
 				
 ##Reliable Data from Credible Sources 
 
@@ -14,20 +14,22 @@ The same author, in another source, reveals that the absence of a query watcher 
 
 Design constraints, alternatives and assumptions 
 
-	The database which exposes problems is part of a bigger system that is meant to be a HackerNews clone (https://news.ycombinator.com) and fulfills the following features:
+The database which exposes problems is part of a bigger system that is meant to be a HackerNews clone (https://news.ycombinator.com) and fulfills the following features:
 
 Displays a set of stories or comments (on comments) on the system's front page
 Stories or comments are posted by users, which have to be registered to and logged into the system to be able to post
 Uses REST API
 The application has to be fast enough not to cause a poor user experience.
 
-	For reaching this design goal, a database which is capable of storing, fast traversing and retrieving highly connected data is required. Moreover, it has to be robust and prove itself reliable when the dataset grows so we do not run into scalability problems. The website would require the system to process millions of data entries without any crashes.
-	In these situation, the alternatives were SQL databases (relational) and MongoDB (document oriented, schema less). On one hand, SQL databases perform weakly when multiple joins have to be executed and in our case, the comment on comment feature would cause problems. On the other hand, MongoDB runs very well when the schema changes a lot which again, is not the case for us.
-	In contrast with all the competitor databases, Neo4j has the advantage of being good at retrieving linked data, fast for traversing and retrieving information and scales without problems according to their claims (https://neo4j.com/product/ , accessed on 10th of December 2017). Backed up by theory we assumed that Neo4j was a good choice as our main data source but later on problems appeared when dealing with millions of records. The manual describes that neo is very fast but in our use case we found the one situation in which it slows down as the dataset grows big. 
+For reaching this design goal, a database which is capable of storing, fast traversing and retrieving highly connected data is required. Moreover, it has to be robust and prove itself reliable when the dataset grows so we do not run into scalability problems. The website would require the system to process millions of data entries without any crashes.
+
+In these situation, the alternatives were SQL databases (relational) and MongoDB (document oriented, schema less). On one hand, SQL databases perform weakly when multiple joins have to be executed and in our case, the comment on comment feature would cause problems. On the other hand, MongoDB runs very well when the schema changes a lot which again, is not the case for us.
+
+In contrast with all the competitor databases, Neo4j has the advantage of being good at retrieving linked data, fast for traversing and retrieving information and scales without problems according to their claims (https://neo4j.com/product/ , accessed on 10th of December 2017). Backed up by theory we assumed that Neo4j was a good choice as our main data source but later on problems appeared when dealing with millions of records. The manual describes that neo is very fast but in our use case we found the one situation in which it slows down as the dataset grows big. 
 
 Theoretical explanations
 
-	The analysis of the database’s performance problems led us to the following explanations about RAM memory usage and Order by clause:
+The analysis of the database’s performance problems led us to the following explanations about RAM memory usage and Order by clause:
 
   Neo4j databases use big amounts of RAM to perform operations because the internal implementation does not use a query watcher which puts more pressure on the developer to carefully design efficient queries.
 
@@ -49,7 +51,7 @@ During a simulation the following criteria has to be met:
 - Retrieve data based on the timestamp in an ordered manner
 - Observe poor performance when as data grows
 
-	Below we analyse the behaviour of 2 similar queries which perform differently performance-wise. Because the way they are structured, the first one has to work with bigger amount of data compared to the second one. In the parenthesis, the number of nodes in memory are displayed.
+Below we analyse the behaviour of 2 similar queries which perform differently performance-wise. Because the way they are structured, the first one has to work with bigger amount of data compared to the second one. In the parenthesis, the number of nodes in memory are displayed.
  
 (post_parent:-1 means that we only get stories)
 (Bad query ) 12s average, sometimes ram overflow
@@ -76,7 +78,7 @@ The difference between first and second query is that the 2nd is performing ORDE
 
 Previous work/future work 
 
-	In this article we’ve analysed and listed credible sources which discuss and propose solutions for the RAM overflow, aggregated data and “order by” clause at the same time expressing our opinions about them. Later we presented our constraints and explanations related to the project in which the database problem is present. A series of explanations based on theory create the background for the simulation for the design of an applicable solution.
+In this article we’ve analysed and listed credible sources which discuss and propose solutions for the RAM overflow, aggregated data and “order by” clause at the same time expressing our opinions about them. Later we presented our constraints and explanations related to the project in which the database problem is present. A series of explanations based on theory create the background for the simulation for the design of an applicable solution.
 
   In the future our attention will be on implementing better designs having in mind large data sets, finding more sources to rely on with the community’s help, implement/report new feature requests to enhance the capabilities of databases and last by not least, monitor and compare performance of databases simulating industrial use.
 
