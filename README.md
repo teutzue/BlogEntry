@@ -1,5 +1,6 @@
-# BlogEntry
+# BlogEntry 
 
+Teodor Mihail Costica, Adam Lewandowski
 	
 ##Overview
 
