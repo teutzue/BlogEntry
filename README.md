@@ -6,7 +6,7 @@ Teodor Mihail Costica, Adam Lewandowski
 
 By reading this blog post you can find discussions based on credible sources, theoretical analysis and the design of the solution for how to deal with big amount of data in Neo4j, avoid RAM overflow, bottlenecks when it comes to aggregated and ordered data. Addressing these serious issues can bring new life to your database and enable almost unlimited scaling. 
 				
-## Reliable Data from Credible Sources 
+## Research
 
 Although the problem we talk about in this article is described, analysed and has some solutions proposed on multiple websites (this fact shows that the identified matter is real and of interest for a lot of programmers), after a careful investigation, we have selected only a few sources which offer a complete analysis and verified solutions based on knowledge and experience. 
 The problem identified by us is acknowledged to be valid by Louise Söderström, one of the main contributors to the Neo4j database who considers the fix a top priority for future releases. Moreover, by reading the Neo4j manual, we identified that the “order by” clause doesn’t use indexes although this fact is not explicitly said (https://neo4j.com/docs/developer-manual/current/cypher/clauses/order-by/, accessed on 10th of December 2017).
@@ -77,7 +77,7 @@ Flow of the above: Get all nodes(7284148)->match stories(1479250)-> match storie
 The difference between first and second query is that the 2nd is performing ORDER BY on much smaller number of nodes(1479250 vs 20631). That is because the scope has been narrowed by WHERE clause. Paying close close attention, we can notice that in both queries neo4j is scanning all timestamps nevertheless. The key difference is that WHERE clause is utilizing indexes whereas ORDER BY is not.  
 
 
-## Previous work/future work 
+## Conclusion 
 
 In this article we’ve analysed and listed credible sources which discuss and propose solutions for the RAM overflow, aggregated data and “order by” clause at the same time expressing our opinions about them. Later we presented our constraints and explanations related to the project in which the database problem is present. A series of explanations based on theory create the background for the simulation for the design of an applicable solution.
 
