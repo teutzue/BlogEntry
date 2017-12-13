@@ -57,26 +57,26 @@ Below we analyse the behaviour of 2 similar queries which perform differently pe
 (Bad query ) 12s average, sometimes ram overflow  
 ```
 Match (par:Post{post_parent:-1}) 
-with par ORDER BY par.timestamp desc skip (30*skip) limit limit   
+with par ORDER BY par.timestamp desc skip (30*x) limit y   
 with par  
 return par as post, size((par)-[:Parent *1..]->()) as numberOfcomments;  
 ``` 
 Number of nodes in total at this very moment: 7284148
 Flow of the above:  
-Get all nodes(7284148)->match stories(1479250)->order them(1479250)->skip skip amount of posts(1479250-skip)--> limit limit amount of posts(limit)->return posts(limit)->find and count their comments(limit)
+Get all nodes(7284148)->match stories(1479250)->order them(1479250)->skip x amount of posts(1479250-x)--> limit y amount of posts(y)->return posts(y)->find and count their comments(y)
 
 Solution:  
 (Good query) 4,5 s average time no ram overflow  
 timeLimit is current time of writing this article-8 hours  
  ```
 Match (par:Post{post_parent:-1}) where par.timestamp>timeLimit  
-with par skip (30*skip) limit limit  
+with par skip (30*x) limit limit  
 with par ORDER BY par.timestamp desc  
 return par as post, size((par)-[:Parent *1..]->()) as numberOfcomments
 ```
 
 Flow of the above:   
-Get all nodes(7284148)->match stories(1479250)-> match stories newer than timeLimit (20631)->order by posts(20631)->skip skip amount of posts(20631-skip)-> limit limit amount of posts(limit)->return posts-(limit)>find and count their comments(limit)
+Get all nodes(7284148)->match stories(1479250)-> match stories newer than timeLimit (20631)->order by posts(20631)->skip x amount of posts(20631-x)-> limit y amount of posts(y)->return posts-(y)>find and count their comments(y)
 
 The difference between first and second query is that the 2nd is performing ORDER BY on much smaller number of nodes(1479250 vs 20631). That is because the scope has been narrowed by WHERE clause. Paying close close attention, we can notice that in both queries neo4j is scanning all timestamps nevertheless. The key difference is that WHERE clause is utilizing indexes whereas ORDER BY is not.  
 
