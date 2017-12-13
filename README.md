@@ -67,10 +67,10 @@ Get all nodes(7284148)->match stories(1479250)->order them(1479250)->skip skip a
 Solution:  
 (Good query) 4,5 s average time no ram overflow  
 timeLimit is current time of writing this article-8 hours  
-<span style="color:green">*Match (par:Post{post_parent:-1}) where par.timestamp>timeLimit  
+<span style="color:green">* ```Match (par:Post{post_parent:-1}) where par.timestamp>timeLimit  
 with par skip (30*skip) limit limit  
 with par ORDER BY par.timestamp desc  
-return par as post, size((par)-[:Parent *1..]->()) as numberOfcomments;*</span>   
+return par as post, size((par)-[:Parent *1..]->()) as numberOfcomments```;*</span>   
 
 Flow of the above:   
 Get all nodes(7284148)->match stories(1479250)-> match stories newer than timeLimit (20631)->order by posts(20631)->skip skip amount of posts(20631-skip)-> limit limit amount of posts(limit)->return posts-(limit)>find and count their comments(limit)
