@@ -4,7 +4,7 @@ Teodor Mihail Costica, Adam Lewandowski
 	
 ## Overview
 
-By reading this blog post you can find discussions based on credible sources, theoretical analysis and the design of the solution for how to deal with big amount of data in Neo4j, avoid RAM overflow, bottlenecks when it comes to aggregated and ordered data. Addressing these serious issues can bring new life to your database and enable almost unlimited scaling. 
+By reading this blog post you can find discussions based on credible sources, theoretical analysis and the design of the solution for how to deal with big amount of data in Neo4j, avoid RAM overflow, bottlenecks when it comes to aggregated data. Addressing these serious issues can bring new life to your database and enable almost unlimited scaling. 
 				
 ## Research
 
