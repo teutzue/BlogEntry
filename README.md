@@ -4,7 +4,11 @@ Teodor Mihail Costica, Adam Lewandowski
 	
 ## Overview
 
-By reading this blog post you can find discussions based on credible sources, theoretical analysis and the design of the solution for how to deal with big amount of data in Neo4j, avoid RAM overflow, bottlenecks when it comes to aggregated data. Addressing these serious issues can bring new life to your database and enable almost unlimited scaling. 
+Neo4j databases that work with big amounts of data suffer performance problems when querying aggregated data.
+This leads to bottlenecks and crashes causing poor user experience.
+However, most performance problems have their root in a few issues that can be worked around.
+Better database performance increases system overall responsiveness under heavy load.
+
 				
 ## Research
 
