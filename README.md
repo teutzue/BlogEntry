@@ -70,7 +70,7 @@ Solution:
 timeLimit is current time of writing this article-8 hours  
  ```
 Match (par:Post{post_parent:-1}) where par.timestamp>timeLimit  
-with par skip (30*x) limit limit  
+with par skip (30*x) limit y  
 with par ORDER BY par.timestamp desc  
 return par as post, size((par)-[:Parent *1..]->()) as numberOfcomments
 ```
