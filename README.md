@@ -55,7 +55,8 @@ Below we analyse the behaviour of 2 similar queries which perform differently pe
  
 (post_parent:-1 means that we only get stories)  
 (Bad query ) 12s average, sometimes ram overflow  
-```Match (par:Post{post_parent:-1}) 
+```
+Match (par:Post{post_parent:-1}) 
 with par ORDER BY par.timestamp desc skip (30*skip) limit limit   
 with par  
 return par as post, size((par)-[:Parent *1..]->()) as numberOfcomments;  
@@ -67,7 +68,8 @@ Get all nodes(7284148)->match stories(1479250)->order them(1479250)->skip skip a
 Solution:  
 (Good query) 4,5 s average time no ram overflow  
 timeLimit is current time of writing this article-8 hours  
- ```Match (par:Post{post_parent:-1}) where par.timestamp>timeLimit  
+ ```
+Match (par:Post{post_parent:-1}) where par.timestamp>timeLimit  
 with par skip (30*skip) limit limit  
 with par ORDER BY par.timestamp desc  
 return par as post, size((par)-[:Parent *1..]->()) as numberOfcomments
