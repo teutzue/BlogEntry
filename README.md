@@ -87,7 +87,7 @@ The difference between first and second query is that the 2nd is performing ORDE
 
 ## Conclusion 
 
-In this article we’ve analysed and listed credible sources which discuss and propose solutions for the RAM overflow, aggregated data and “order by” clause at the same time expressing our opinions about them. Later we presented our constraints and explanations related to the project in which the database problem is present. A series of explanations based on theory create the background for the simulation for the design of an applicable solution.
+In this article we’ve analysed and listed credible sources which discuss and propose solutions for the RAM overflow, aggregated data and “order by” clause at the same time expressing our opinions about them. Later we presented our constraints and explanations related to the project in which the database problem is present. A series of explanations based on theory create the background for the simulation for the design of an applicable workaround.
 
   In the future our attention will be on implementing better designs having in mind large data sets, finding more sources to rely on with the community’s help, implement/report new feature requests to enhance the capabilities of databases and last by not least, monitor and compare performance of databases simulating industrial use.
 
