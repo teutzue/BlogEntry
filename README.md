@@ -82,8 +82,9 @@ return par as post, size((par)-[:Parent *1..]->()) as numberOfcomments
 Flow of the above:   
 Get all nodes(7284148)->match stories(1479250)-> match stories newer than timeLimit (20631)->order by posts(20631)->skip x amount of posts(20631-x)-> limit y amount of posts(y)->return posts-(y)>find and count their comments(y)
 
-The difference between first and second query is that the 2nd is performing ORDER BY on much smaller number of nodes(1479250 vs 20631). That is because the scope has been narrowed by WHERE clause. Paying close close attention, we can notice that in both queries neo4j is scanning all timestamps nevertheless. The key difference is that WHERE clause is utilizing indexes whereas ORDER BY is not.  
+The difference between first and second query is that the 2nd is performing ORDER BY on much smaller number of nodes(1479250 vs 20631). That is because the scope has been narrowed by WHERE clause. Paying close close attention, we can notice that in both queries neo4j is scanning all timestamps nevertheless. The key difference is that WHERE clause is utilizing indexes whereas ORDER BY is not.
 
+In case of performance problems when working with aggregated data, the solution of fragmenting it has to be applied. This workaround is available for all situations in which the dataset is big and ordered. We recommend to choose Neo4j database only when nodes are highly connected and there is an strong need for traversing them. Learn from our experience and do not chose a database only for a small feature implementation (for us comments on comments) but cosider all requirements for doing that. For other purposes, another type of database is advisable. 
 
 ## Conclusion 
 
